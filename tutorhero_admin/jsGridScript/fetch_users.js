@@ -46,9 +46,9 @@ $('#grid_table').jsGrid({
 
     fields: [{
             name: "userid",
-            width: 150,
+            width: 140,
             title: "ID",
-            css: "hide"
+
         },
         {
             name: "username",

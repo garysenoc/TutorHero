@@ -15,7 +15,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:;">
 
-                        <div id="clock" class="clock" style="font-size: 40px;">loading ...</div>
+
+
+                        <button class="btn btn-warning">
+                            <div id="clock" class="clock" style="font-size: 40px;"> loading ... </div>
+                        </button>
+
                     </a>
                 </li>
 
