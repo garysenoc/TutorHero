@@ -15,7 +15,23 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
-                                    <h4 class="card-title ">My Available Schedule</h4>
+
+                                    <?php
+                                    $gid = $_GET['id'];
+                                    $query = "SELECT * FROM users where userid = '$gid'";
+                                    $select_tutor = mysqli_query($connection, $query);
+                                    while ($row = mysqli_fetch_assoc($select_tutor)) {
+
+                                        $firstname = $row['firstname'];
+                                        $middlename = $row['middlename'];
+                                        $lastname = $row['lastname'];
+                                    }
+
+                                    ?>
+
+
+
+                                    <h4 class="card-title "><?php echo $firstname . " " . $lastname ?>'s Schedule</h4>
                                     <!-- <p class="card-category"> Here is the list of all users</p> -->
                                 </div>
                                 <div class="card-body">
@@ -23,10 +39,10 @@
                                     <div class="row">
 
                                         <div class="col-md-12">
-                                            <?php include("includes1/addAvailableTimeModal.php") ?>
 
 
-                                            <a href="#modal1" class="btn btn-success pull-right modal-trigger"> Add Available Time</a>
+
+                                            <!-- <a href="#modal1" class="btn btn-success pull-right modal-trigger"> Add Available Time</a> -->
                                         </div>
                                     </div>
                                     <div class="row">
@@ -54,7 +70,7 @@
 
 
                                                     <?php
-                                                    $userid = $_SESSION['userid'];
+                                                    $userid = $_GET['id'];
                                                     $query = "SELECT * FROM users_available_time WHERE userid = '$userid'";
                                                     $result = mysqli_query($connection, $query);
 
@@ -64,6 +80,7 @@
                                                         $timestart = $row['timestart'];
                                                         $timeend = $row['timeend'];
                                                         $subject = $row['subject'];
+                                                        $userid = $row['userid'];
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $date; ?></td>
@@ -86,13 +103,34 @@
 
 
                                                                 <form action="" method="post">
-                                                                    <input type="hidden" name="id" value="<?php echo $id ?>">
-                                                                    <button type="submit" class='btn btn-danger' name='delete'>Delete</button>
+                                                                    <input type="hidden" name="date" value="<?php echo $date; ?>">
+                                                                    <input type="hidden" name="timestart" value="<?php echo $timestart; ?>">
+                                                                    <input type="hidden" name="timeend" value="<?php echo $timeend; ?>">
+                                                                    <input type="hidden" name="topic" value="<?php echo $subject; ?>">
+                                                                    <input type="hidden" name="id" value="<?php echo $userid ?>">
+                                                                    <button type="submit" class='btn btn-success' name='book'>Book </button>
                                                             </td>
                                                             </form>
                                                         </tr>
 
                                                     <?php } ?>
+
+                                                    <?php
+
+                                                    if (isset($_POST['book'])) {
+                                                        $date = $_POST['date'];
+                                                        $timestart = $_POST['timestart'];
+                                                        $timeend = $_POST['timeend'];
+                                                        $topic = $_POST['topic'];
+                                                        $userid = $_POST['id'];
+                                                        $this_user = $_SESSION['userid'];
+                                                        $query = "INSERT INTO appointments values(null,now(),'$date','$timestart','$timeend','$topic','$userid','$this_user')";
+                                                        $insert_appointment = mysqli_query($connection, $query);
+
+                                                        echo "<script>location.replace('./appointments.php');</script>";
+                                                    }
+
+                                                    ?>
 
 
                                                 </tbody>

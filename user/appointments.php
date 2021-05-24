@@ -15,7 +15,14 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
-                                    <h4 class="card-title ">My Available Schedule</h4>
+
+                                    <?php
+
+                                    ?>
+
+
+
+                                    <h4 class="card-title ">My Appointments</h4>
                                     <!-- <p class="card-category"> Here is the list of all users</p> -->
                                 </div>
                                 <div class="card-body">
@@ -23,10 +30,10 @@
                                     <div class="row">
 
                                         <div class="col-md-12">
-                                            <?php include("includes1/addAvailableTimeModal.php") ?>
 
 
-                                            <a href="#modal1" class="btn btn-success pull-right modal-trigger"> Add Available Time</a>
+
+                                            <!-- <a href="#modal1" class="btn btn-success pull-right modal-trigger"> Add Available Time</a> -->
                                         </div>
                                     </div>
                                     <div class="row">
@@ -45,8 +52,8 @@
                                                         <th>Date</th>
                                                         <th>Time Start</th>
                                                         <th>Time End</th>
-
                                                         <th>Topic</th>
+                                                        <th>Tutor</th>
                                                     </tr>
                                                 </thead>
 
@@ -54,16 +61,18 @@
 
 
                                                     <?php
-                                                    $userid = $_SESSION['userid'];
-                                                    $query = "SELECT * FROM users_available_time WHERE userid = '$userid'";
+                                                    $tutee = $_SESSION['userid'];
+                                                    $query = "SELECT * FROM appointments WHERE tutee = '$tutee'";
                                                     $result = mysqli_query($connection, $query);
 
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                                        $id = $row['id'];
+
                                                         $date = $row['date'];
-                                                        $timestart = $row['timestart'];
-                                                        $timeend = $row['timeend'];
-                                                        $subject = $row['subject'];
+                                                        $timestart = $row['time_start'];
+                                                        $timeend = $row['time_end'];
+                                                        $subject = $row['subjectid'];
+                                                        $appointmentid = $row['appointmentid'];
+                                                        $userid = $row['userid'];
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $date; ?></td>
@@ -83,17 +92,42 @@
                                                             </td>
                                                             <td>
 
+                                                                <?php
+                                                                $query1 = "SELECT * FROM users where userid = '$userid'";
+                                                                $select_topic = mysqli_query($connection, $query1);
+
+                                                                while ($row = mysqli_fetch_array($select_topic)) {
+                                                                    $firstname = $row['firstname'];
+                                                                    $middlename = $row['middlename'];
+                                                                    $lastname = $row['lastname'];
+                                                                }
+                                                                echo $firstname . " " . $middlename . " " . $lastname;
+                                                                ?>
+
+
+                                                            </td>
+                                                            <td>
+
 
 
                                                                 <form action="" method="post">
-                                                                    <input type="hidden" name="id" value="<?php echo $id ?>">
-                                                                    <button type="submit" class='btn btn-danger' name='delete'>Delete</button>
+                                                                    <input type="hidden" name="appointmentid" value="<?php echo $appointmentid; ?>">
+                                                                    <button type="submit" class='btn btn-danger' name='remove'>Remove</button>
                                                             </td>
                                                             </form>
                                                         </tr>
 
                                                     <?php } ?>
 
+                                                    <?php
+                                                    if (isset($_POST['remove'])) {
+                                                        $appointmentid = $_POST['appointmentid'];
+                                                        $query = "DELETE FROM appointments WHERE appointmentid = '$appointmentid'";
+                                                        $remove_query = mysqli_query($connection, $query);
+                                                        echo "<script>location.replace('./appointments.php');</script>";
+                                                    }
+
+                                                    ?>
 
                                                 </tbody>
                                             </table>

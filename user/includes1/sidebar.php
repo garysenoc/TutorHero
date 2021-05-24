@@ -35,8 +35,8 @@
                     <p>Find Tutors</p>
                 </a>
             </li>
-            <li class="nav-item " id="subjects">
-                <a class="nav-link" href="./subjects.php">
+            <li class="nav-item " id="appointments">
+                <a class="nav-link" href="./appointments.php">
                     <i class="material-icons">library_books</i>
                     <p>My Appointments</p>
                 </a>

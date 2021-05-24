@@ -1,7 +1,6 @@
 <?php include("./includes1/header.php") ?>
 <?php include("./includes1/db.php") ?>
 
-
 <body class="">
     <div class="wrapper ">
         <?php include("./includes1/sidebar.php") ?>
@@ -15,90 +14,99 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
-                                    <h4 class="card-title ">My Available Schedule</h4>
+                                    <h4 class="card-title ">Tutors</h4>
                                     <!-- <p class="card-category"> Here is the list of all users</p> -->
                                 </div>
                                 <div class="card-body">
                                     <br>
                                     <div class="row">
-
-                                        <div class="col-md-12">
-                                            <?php include("includes1/addAvailableTimeModal.php") ?>
-
-
-                                            <a href="#modal1" class="btn btn-success pull-right modal-trigger"> Add Available Time</a>
-                                        </div>
+                                        <form class="col s12">
+                                            <div class="row">
+                                                <div class="input-field col s5">
+                                                    <i class="material-icons prefix">search</i>
+                                                    <input id="icon_prefix" type="text" class="validate">
+                                                    <label for="icon_prefix">Search Tutor's name</label>
+                                                </div>
+                                                <div class="input-field col s5">
+                                                    <select required name="role">
+                                                        <option value="" selected>All</option>
+                                                        <option value="tutor">Mathematics</option>
+                                                        <option value="tutor">Mathematics</option>
+                                                        <option value="tutee">Science</option>
+                                                    </select>
+                                                    <label>Subject</label>
+                                                </div>
+                                                <div class="input-field col s2">
+                                                    <button class="btn btn-primary">Search</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
+
+
+
+
+
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <?php
-                                            if (isset($_POST['delete'])) {
-                                                $id = $_POST['id'];
-                                                $query = "DELETE FROM users_available_time where id = '$id'";
-                                                $delete_available = mysqli_query($connection, $query);
-                                            }
-
-                                            ?>
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                        <th>Date</th>
-                                                        <th>Time Start</th>
-                                                        <th>Time End</th>
-
-                                                        <th>Topic</th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-
-
-                                                    <?php
-                                                    $userid = $_SESSION['userid'];
-                                                    $query = "SELECT * FROM users_available_time WHERE userid = '$userid'";
-                                                    $result = mysqli_query($connection, $query);
-
-                                                    while ($row = mysqli_fetch_assoc($result)) {
-                                                        $id = $row['id'];
-                                                        $date = $row['date'];
-                                                        $timestart = $row['timestart'];
-                                                        $timeend = $row['timeend'];
-                                                        $subject = $row['subject'];
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $date; ?></td>
-                                                            <td><?php echo $timestart; ?></td>
-                                                            <td><?php echo $timeend; ?></td>
-                                                            <td>
-                                                                <?php
-                                                                $query1 = "SELECT * FROM subject_topics where id = '$subject'";
-                                                                $select_topic = mysqli_query($connection, $query1);
-
-                                                                while ($row = mysqli_fetch_array($select_topic)) {
-                                                                    $topic = $row['topic'];
-                                                                }
-                                                                echo $topic;
-                                                                ?>
-
-                                                            </td>
-                                                            <td>
 
 
 
-                                                                <form action="" method="post">
-                                                                    <input type="hidden" name="id" value="<?php echo $id ?>">
-                                                                    <button type="submit" class='btn btn-danger' name='delete'>Delete</button>
-                                                            </td>
-                                                            </form>
-                                                        </tr>
 
-                                                    <?php } ?>
+                                        <!-- <div class="card-footer">
+                                                    <div class="stats">
+                                                        <i class="material-icons">access_time</i> campaign sent 2 days ago
+                                                    </div>
+                                                </div> -->
 
 
-                                                </tbody>
-                                            </table>
 
-                                        </div>
+                                        <?php
+
+                                        $query = "SELECT * FROM users where role = 'tutor'";
+                                        $select_users = mysqli_query($connection, $query);
+
+                                        while ($row = mysqli_fetch_array($select_users)) {
+                                            $userid = $row['userid'];
+                                            $firstname = $row['firstname'];
+                                            $middlename = $row['middlename'];
+                                            $lastname = $row['lastname'];
+
+                                        ?>
+
+                                            <div class="col-md-4">
+                                                <div class="card card-chart">
+                                                    <!-- <div class="card-header card-header-warning">
+                                                    </div> -->
+                                                    <div class="card-body">
+                                                        <h5 class="card-title" style="font-weight: bold;font-size:20px;"><?php echo $firstname . " " . $middlename . " " . $lastname ?></h5>
+
+                                                        <?php
+                                                        $query1 = "SELECT * FROM subject_users where userid = '$userid'";
+                                                        $select_topics = mysqli_query($connection, $query1);
+
+                                                        while ($row = mysqli_fetch_array($select_topics)) {
+                                                            $tid = $row['subjectid'];
+
+
+                                                            $query2 = "SELECT * FROM subject_topics WHERE id = '$tid'";
+                                                            $res = mysqli_query($connection, $query2);
+
+                                                            while ($row = mysqli_fetch_array($res)) {
+                                                                $topic = $row['topic'];
+                                                            }
+                                                            echo " <p class='card-category'>$topic</p>";
+                                                        }
+
+                                                        ?>
+
+
+                                                    </div>
+                                                    <div class="card-footer"><a href="bookappointment.php?id=<?php echo $userid ?>" class="btn btn-success btn-block">Book Tutor</a></div>
+                                                </div>
+                                            </div>
+
+                                        <?php } ?>
+
 
 
 
@@ -192,23 +200,11 @@
 
 
     <script>
-        var v = document.getElementById("availabletime");
+        var v = document.getElementById("findtutors");
         v.className += "active";
     </script>
-
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="./dist/js/materialize.js"></script>
-    <script src="./dist/js/init.js"></script>
+    <script src="jsGridScript/fetch_users.js"></script>
     <script>
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     var elems = document.querySelectorAll('.modal');
-        //     var instances = M.Modal.init(elems, options);
-        // });
-
-        // // Or with jQuery
-
-        // Or with jQuery
-
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.modal');
             var instances = M.Modal.init(elems, options);
@@ -218,6 +214,18 @@
 
         $(document).ready(function() {
             $('.modal').modal();
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems, options);
+        });
+
+        // Or with jQuery
+
+        $(document).ready(function() {
+            $('.datepicker').datepicker();
         });
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -231,18 +239,18 @@
             $('select').formSelect();
         });
 
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     var elems = document.querySelectorAll('select');
-        //     var instances = M.FormSelect.init(elems, options);
-        // });
 
-        // // Or with jQuery
-
-        // $(document).ready(function() {
-        //     $('select').formSelect();
-        // });
+        function posted() {
+            Swal.fire(
+                'Good job!',
+                'You have posted a question. Please wait for a while until someone answered your question. Thank you.',
+                'success'
+            )
+        }
     </script>
-
+    <script src="jsGridScript/fetch_users.js"></script>
+    <script src="./dist/js/materialize.js"></script>
+    <script src="./dist/js/init.js"></script>
 </body>
 
 </html>
