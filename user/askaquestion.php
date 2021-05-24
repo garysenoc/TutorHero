@@ -1,6 +1,30 @@
 <?php include("./includes1/header.php") ?>
 <?php include("./includes1/db.php") ?>
 
+
+<?php
+
+
+
+if (isset($_POST['submit'])) {
+    $description = $_POST['description'];
+    $title = $_POST['title'];
+    $topic = $_POST['topic'];
+
+
+    $date = date("M d, Y");
+    $time = date("h:i:s a");
+    $username = $_SESSION['username'];
+
+
+    $query = "INSERT INTO posts (description, title,subjectTopic,post_date,post_time,isSolved,userid) VALUES ('$description', '$title', '$topic','$date','$time',0,'$username')";
+    $insert_post = mysqli_query($connection, $query);
+    echo '<script>alert("You have successfully posted a new question")</script>';
+}
+
+?>
+
+
 <body class="">
     <div class="wrapper ">
         <?php include("./includes1/sidebar.php") ?>
@@ -14,72 +38,67 @@
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
                             <div class="card">
-                                <div class="card-header card-header-primary">
-                                    <h4 class="card-title center-align">Ask a Question</h4>
-                                    <!-- <p class="card-category"> Here is the list of all users</p> -->
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <!-- <label>Ask a Question</label> -->
-                                            <div class="input-field col s12">
-                                                <label class="bmd-label-floating"> What do you want to ask?</label>
-                                                <textarea class="form-control" rows="5"></textarea>
+                                <form action="" method="post">
+                                    <div class="card-header card-header-primary">
+                                        <h4 class="card-title center-align">Ask a Question</h4>
+                                        <!-- <p class="card-category"> Here is the list of all users</p> -->
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <!-- <label>Ask a Question</label> -->
+                                                <div class="input-field col s12">
+                                                    <label class="bmd-label-floating"> What do you want to ask?</label>
+                                                    <textarea class="form-control" rows="5" name="description" required></textarea>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="input-field col s6">
+                                        <div class="row">
+                                            <div class="input-field col s6">
 
-                                            <input id="last_name" type="text" class="validate" name="username" required>
-                                            <label for="last_name">Title </label>
+                                                <input id="last_name" type="text" class="validate" name="title" required>
+                                                <label for="last_name">Title </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <select required name="topic">
+                                                    <option value="" disabled selected>Choose a Topic</option>
+
+
+                                                    <?php
+
+                                                    $query = "SELECT * FROM subject_topics";
+                                                    $select_all_topic = mysqli_query($connection, $query);
+
+
+                                                    while ($row = mysqli_fetch_assoc($select_all_topic)) {
+                                                        $subject_name = $row['topic'];
+                                                        $id = $row['id'];
+                                                        echo "<option value='" . $subject_name . "'> " . $subject_name . "</option>";
+                                                    }
+
+                                                    ?>
+
+
+
+
+                                                </select>
+                                                <label>Subject Topic</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <button type="submit" name="submit" class="btn btn-info pull-right btn-block">Post</button>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <select required name="role">
-                                                <option value="" disabled selected>Choose a Topic</option>
-                                                <option value="tutor">Mathematics</option>
-                                                <option value="tutee">Science</option>
-                                            </select>
-                                            <label>Topic</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="card-footer">
-                                        <button onclick="posted()" type="submit" class="btn btn-info pull-right btn-block">Post</button>
-                                    </div>
-                                </div>
-
+                                </form>
                             </div>
                         </div>
                     </div>
 
 
 
-
-
-                    <div class="row">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-6">
-                            <div class="card ">
-                                <div class="card-content">
-                                    <span class="card-title">Card Title</span>
-                                    <div class="stats" style="display:inline-block;margin-bottom:10px;">
-                                        <!-- <i class="material-icons" style="display:inline-block">access_time</i> -->
-                                        <p style="display:inline-block">May 29, 2021, 3:00 PM</p>
-                                    </div>
-
-                                    <p>I am a very simple card. I am good at containing small bits of information.
-                                        I am convenient because I require little markup to use effectively.</p>
-                                </div>
-                                <!-- <div class="card-action">
-                                        <a href="#">This is a link</a>
-                                        <a href="#">This is a link</a>
-                                    </div> -->
-                            </div>
-                        </div>
-                    </div>
 
 
 

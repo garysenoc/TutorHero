@@ -5,7 +5,9 @@
         Tip 2: you can also add an image using data-image tag
     -->
     <div class="logo"><a href="" class="simple-text logo-normal">
-            ADMIN
+            <?php
+            echo "HELLO <b>" . $_SESSION['firstname'] . "</b>!";
+            ?>
         </a></div>
     <div class="sidebar-wrapper">
         <ul class="nav">
@@ -15,10 +17,10 @@
                     <p>Ask a Question</p>
                 </a>
             </li>
-            <li class="nav-item " id="users">
-                <a class="nav-link" href="./users.php">
-                    <i class="material-icons">person</i>
-                    <p>My Profile</p>
+            <li class="nav-item " id="myquestions">
+                <a class="nav-link" href="./myquestions.php">
+                    <i class="material-icons">dashboard</i>
+                    <p>My Questions</p>
                 </a>
             </li>
             <li class="nav-item " id="subjects">
@@ -27,8 +29,8 @@
                     <p>Subjects</p>
                 </a>
             </li>
-            <li class="nav-item " id="subjects">
-                <a class="nav-link active" href="./subjects.php">
+            <li class="nav-item " id="findtutors">
+                <a class="nav-link active" href="./findtutors.php">
                     <i class="material-icons">groups</i>
                     <p>Find Tutors</p>
                 </a>
@@ -48,7 +50,7 @@
 
 
             <li class="nav-item active-pro ">
-                <a class="nav-link" href="./logout.php">
+                <a class="nav-link" href="./index.php">
                     <i class="material-icons">unarchive</i>
                     <p>Logout</p>
                 </a>

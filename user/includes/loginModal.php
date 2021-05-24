@@ -1,5 +1,34 @@
 <?php
 
+if (isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $query = "SELECT * FROM users WHERE username = '$username' OR email='$username' AND password = '$password'";
+
+
+
+    $select_users = mysqli_query($connection, $query);
+
+
+    if (mysqli_num_rows($select_users) > 0) {
+        echo "<script>
+        Swal.fire(
+          'Good job!',
+          'You clicked the button!',
+          'success'
+        );
+       location.replace('home.php');
+        </script>";
+    } else {
+        echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Incorrect Username / Password',
+          })
+        </script>";
+    }
+}
 
 ?>
 
@@ -9,27 +38,28 @@
         <h4>Login</h4>
 
         <div class="row">
-            <form class="col s12">
+            <form class="col s12" method="post" action="">
 
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
-                        <input id="first_name" type="text" class="validate">
+                        <input id="first_name" name="username" type="text" class="validate">
                         <label for="password">Username or Email</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock_outline</i>
-                        <input id="password" type="password" class="validate">
+                        <input id="password" name="password" type="password" class="validate">
                         <label for="password">Password</label>
                     </div>
                 </div>
-            </form>
+
         </div>
     </div>
     <div class="modal-footer">
         <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-        <button class="btn btn-primary">Login</button>
+        <button class="btn btn-primary" type="submit" name="login">Login</button>
+        </form>
     </div>
 </div>

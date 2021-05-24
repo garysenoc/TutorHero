@@ -18,6 +18,7 @@
                                     <!-- <p class="card-category"> Here is the list of all users</p> -->
                                 </div>
                                 <div class="card-body">
+                                    <br>
                                     <div class="row">
 
                                         <?php
@@ -32,8 +33,8 @@
 
                                             <div class="col-md-4">
                                                 <div class="card card-chart">
-                                                    <div class="card-header card-header-warning">
-                                                    </div>
+                                                    <!-- <div class="card-header card-header-warning">
+                                                    </div> -->
                                                     <div class="card-body">
                                                         <h4 class="card-title" style="font-weight: bold"><?php echo $subject_name ?></h4>
 
@@ -58,7 +59,18 @@
                                                     </div>
                                                 </div> -->
 
+
+
+
+
+
+
+
                                     </div>
+
+
+
+
 
                                 </div>
                             </div>

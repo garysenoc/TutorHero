@@ -15,7 +15,7 @@
                 <h5 class="header col s12 light">A modern way of finding a solution to your Academic Problem</h5>
             </div>
             <div class="row center">
-                <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
+                <a href="#modal2" id="download-button" class="modal-trigger btn-large waves-effect waves-light orange">Get Started</a>
             </div>
             <br><br>
 
@@ -83,39 +83,39 @@
     <script src="./dist/js/materialize.js"></script>
     <script src="./dist/js/init.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.modal');
-            var instances = M.Modal.init(elems, options);
-        });
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     var elems = document.querySelectorAll('.modal');
+        //     var instances = M.Modal.init(elems, options);
+        // });
 
-        // Or with jQuery
+        // // Or with jQuery
 
         $(document).ready(function() {
             $('.modal').modal();
         });
 
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.datepicker');
-            var instances = M.Datepicker.init(elems, options);
-        });
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     var elems = document.querySelectorAll('.datepicker');
+        //     var instances = M.Datepicker.init(elems, options);
+        // });
 
-        // Or with jQuery
+        // // Or with jQuery
 
-        $(document).ready(function() {
-            $('.datepicker').datepicker();
-        });
+        // $(document).ready(function() {
+        //     $('.datepicker').datepicker();
+        // });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('select');
-            var instances = M.FormSelect.init(elems, options);
-        });
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     var elems = document.querySelectorAll('select');
+        //     var instances = M.FormSelect.init(elems, options);
+        // });
 
-        // Or with jQuery
+        // // Or with jQuery
 
-        $(document).ready(function() {
-            $('select').formSelect();
-        });
+        // $(document).ready(function() {
+        //     $('select').formSelect();
+        // });
     </script>
 </body>
 

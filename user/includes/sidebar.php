@@ -47,7 +47,7 @@
             </li>
 
             <li class="nav-item active-pro ">
-                <a class="nav-link" href="./logout.php">
+                <a class="nav-link" href="index.php">
                     <i class="material-icons">unarchive</i>
                     <p>Logout</p>
                 </a>
