@@ -20,24 +20,32 @@
                                 <div class="card-body">
                                     <br>
                                     <div class="row">
-                                        <form class="col s12">
+                                        <form class="col s12" method="POST" action="">
                                             <div class="row">
-                                                <div class="input-field col s5">
-                                                    <i class="material-icons prefix">search</i>
-                                                    <input id="icon_prefix" type="text" class="validate">
-                                                    <label for="icon_prefix">Search Tutor's name</label>
-                                                </div>
-                                                <div class="input-field col s5">
-                                                    <select required name="role">
+
+                                                <div class="input-field col s12" style="float: right">
+                                                    <select required name="topic">
                                                         <option value="" selected>All</option>
-                                                        <option value="tutor">Mathematics</option>
-                                                        <option value="tutor">Mathematics</option>
-                                                        <option value="tutee">Science</option>
+                                                        <?php
+
+                                                        $query = "SELECT * FROM subject_topics";
+                                                        $select_topic = mysqli_query($connection, $query);
+
+
+                                                        while ($row = mysqli_fetch_assoc($select_topic)) {
+                                                            $topic1 = $row['topic'];
+                                                            $id1 = $row['id'];
+
+
+                                                            echo "<option value=$id1>$topic1</option>";
+                                                        }
+                                                        ?>
+
                                                     </select>
                                                     <label>Subject</label>
                                                 </div>
                                                 <div class="input-field col s2">
-                                                    <button class="btn btn-primary">Search</button>
+                                                    <button type="submit" class="btn btn-primary" name="search">Search</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -81,7 +89,8 @@
                                                         <h5 class="card-title" style="font-weight: bold;font-size:20px;"><?php echo $firstname . " " . $middlename . " " . $lastname ?></h5>
 
                                                         <?php
-                                                        $query1 = "SELECT * FROM subject_users where userid = '$userid'";
+                                                        $id = $_GET['id'];
+                                                        $query1 = "SELECT * FROM subject_users, users WHERE subject_users.userid = users.userid and subject_users.subjectid = '$id'";
                                                         $select_topics = mysqli_query($connection, $query1);
 
                                                         while ($row = mysqli_fetch_array($select_topics)) {

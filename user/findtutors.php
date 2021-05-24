@@ -17,14 +17,20 @@
                                     <h4 class="card-title ">Tutors</h4>
                                     <!-- <p class="card-category"> Here is the list of all users</p> -->
                                 </div>
+                                <?php
+                                if (isset($_POST['search'])) {
+                                    $topic = $_POST['topic'];
+                                    echo "<script>location.replace('./searchtutor.php?id=$topic')</script>";
+                                }
+                                ?>
                                 <div class="card-body">
                                     <br>
                                     <div class="row">
-                                        <form class="col s12">
+                                        <form class="col s12" method="POST" action="">
                                             <div class="row">
 
                                                 <div class="input-field col s12" style="float: right">
-                                                    <select required name="role">
+                                                    <select required name="topic">
                                                         <option value="" selected>All</option>
                                                         <?php
 
@@ -45,16 +51,13 @@
                                                     <label>Subject</label>
                                                 </div>
                                                 <div class="input-field col s2">
-                                                    <button class="btn btn-primary" name="search">Search</button>
+                                                    <button type="submit" class="btn btn-primary" name="search">Search</button>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
 
-                                    <?php
-                                    if (isset($_POST['search'])) {
-                                    }
-                                    ?>
+
 
 
 
