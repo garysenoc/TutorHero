@@ -1,23 +1,64 @@
 <?php
 
+
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $query = "SELECT * FROM users WHERE username = '$username' OR email='$username' AND password = '$password'";
-
-
-
     $select_users = mysqli_query($connection, $query);
 
 
+
+
+
+
     if (mysqli_num_rows($select_users) > 0) {
+
+        $query = "SELECT * FROM users WHERE username = '$username' OR email='$username' AND password = '$password'";
+        $select_user_query = mysqli_query($connection, $query);
+
+
+        while ($row = mysqli_fetch_assoc($select_user_query)) {
+            $userid = $row['userid'];
+            $username = $row['username'];
+            $firstname = $row['firstname'];
+            $role = $row['role'];
+
+            $_SESSION['userid'] = $userid;
+            $_SESSION['username'] = $username;
+            $_SESSION['firstname'] = $firstname;
+            $_SESSION['role'] = $role;
+        }
+
+
+        if ($role == 'tutor') {
+            echo "<script>
+            Swal.fire(
+              'Good job!',
+              'You clicked the button!',
+              'success'
+            );
+           location.replace('../tutor/answerquestion.php');
+            </script>";
+        } else {
+
+            echo "<script>
+            Swal.fire(
+              'Good job!',
+              'You clicked the button!',
+              'success'
+            );
+           location.replace('../askaquestion.php');
+            </script>";
+        }
+
         echo "<script>
         Swal.fire(
           'Good job!',
           'You clicked the button!',
           'success'
         );
-       location.replace('home.php');
+       location.replace('answerquestion.php');
         </script>";
     } else {
         echo "<script>
