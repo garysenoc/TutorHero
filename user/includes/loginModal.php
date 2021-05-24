@@ -48,7 +48,7 @@ if (isset($_POST['login'])) {
               'You clicked the button!',
               'success'
             );
-           location.replace('../askaquestion.php');
+           location.replace('../user/askaquestion.php');
             </script>";
         }
 

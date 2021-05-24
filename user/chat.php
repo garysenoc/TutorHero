@@ -14,55 +14,79 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header card-header-primary">
-                                    <h4 class="card-title ">Tutors</h4>
+                                    <h4 class="card-title ">Chat</h4>
                                     <!-- <p class="card-category"> Here is the list of all users</p> -->
                                 </div>
-                                <?php
-                                if (isset($_POST['search'])) {
-                                    $topic = $_POST['topic'];
-                                    echo "<script>location.replace('./searchtutor.php?id=$topic')</script>";
-                                }
-                                ?>
                                 <div class="card-body">
                                     <br>
+
+                                    <?php
+
+                                    if (isset($_POST['search'])) {
+
+                                        $question = $_POST['question'];
+                                        $topic = $_POST['topic'];
+
+
+                                        if ($topic == 'all') {
+                                            echo "<script>
+                                            location.replace('./answerquestion.php')
+                                            </script>";;
+                                        } else {
+                                            echo "<script>
+                                            location.replace('./searchquestion.php?question=$question&topic=$topic')
+                                            </script>";
+                                        }
+                                    }
+
+                                    ?>
+
+
+
+
+
+
+
+
                                     <div class="row">
-                                        <!-- <form class="col s12" method="POST" action="">
-                                            <div class="row">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-6">
+                                            <div class="card card-chart">
+                                                <!-- <div class="card-header card-header-warning">
+                                                    </div> -->
+                                                <div class="card-body">
+                                                    <h5 class="card-title" style="font-weight: bold;font-size:20px;"></h5>
+                                                    <p class='card-category'></p>
+                                                    <ul class="collection with-header">
+                                                        <li class="collection-header">
+                                                            <h4>List of names</h4>
+                                                        </li>
 
-                                                <div class="input-field col s12" style="float: right">
-                                                    <select required name="topic">
-                                                        <option value="" selected>All</option>
                                                         <?php
+                                                        $userid = $_SESSION['userid'];
+                                                        $query = "SELECT * FROM users where userid != '$userid'";
+                                                        $result = mysqli_query($connection, $query);
 
-                                                        $query = "SELECT * FROM subject_topics";
-                                                        $select_topic = mysqli_query($connection, $query);
+                                                        while ($row = mysqli_fetch_array($result)) {
+                                                            $userid = $row['userid'];
+                                                            $firstname = $row['firstname'];
+                                                            $middlename = $row['middlename'];
+                                                            $lastname = $row['lastname'];
 
 
-                                                        while ($row = mysqli_fetch_assoc($select_topic)) {
-                                                            $topic1 = $row['topic'];
-                                                            $id1 = $row['id'];
-
-
-                                                            echo "<option value=$id1>$topic1</option>";
-                                                        }
                                                         ?>
 
-                                                    </select>
-                                                    <label>Subject</label>
+
+                                                            <li class="collection-item">
+                                                                <div><?php echo $firstname . " " . $middlename . " " . $lastname ?><a href="messages.php?id=<?php echo $userid;  ?>" class="secondary-content"><i class="material-icons">send</i></a></div>
+                                                            </li>
+                                                        <?php   } ?>
+                                                    </ul>
+
                                                 </div>
-                                                <div class="input-field col s2">
-                                                    <button type="submit" class="btn btn-primary" name="search">Search</button>
-                                                </div>
+                                                <div class="card-footer"></div>
                                             </div>
-                                        </form> -->
-                                    </div>
-
-
-
-
-
-
-                                    <div class="row">
+                                        </div>
 
 
 
@@ -72,58 +96,6 @@
                                                         <i class="material-icons">access_time</i> campaign sent 2 days ago
                                                     </div>
                                                 </div> -->
-
-
-
-                                        <?php
-
-                                        $query = "SELECT * FROM users where role = 'tutor'";
-                                        $select_users = mysqli_query($connection, $query);
-
-                                        while ($row = mysqli_fetch_array($select_users)) {
-                                            $userid = $row['userid'];
-                                            $firstname = $row['firstname'];
-                                            $middlename = $row['middlename'];
-                                            $lastname = $row['lastname'];
-
-                                        ?>
-
-                                            <div class="col-md-4">
-                                                <div class="card card-chart">
-                                                    <!-- <div class="card-header card-header-warning">
-                                                    </div> -->
-                                                    <div class="card-body">
-                                                        <a href="seeprofile.php?id=<?php echo $userid ?>">
-                                                            <h5 class="card-title" style="font-weight: bold;font-size:20px;"><?php echo $firstname . " " . $middlename . " " . $lastname ?></h5>
-                                                        </a>
-
-                                                        <?php
-                                                        $query1 = "SELECT * FROM subject_users where userid = '$userid'";
-                                                        $select_topics = mysqli_query($connection, $query1);
-
-                                                        while ($row = mysqli_fetch_array($select_topics)) {
-                                                            $tid = $row['subjectid'];
-
-
-                                                            $query2 = "SELECT * FROM subject_topics WHERE id = '$tid'";
-                                                            $res = mysqli_query($connection, $query2);
-
-                                                            while ($row = mysqli_fetch_array($res)) {
-                                                                $topic = $row['topic'];
-                                                            }
-                                                            echo " <p class='card-category'>$topic</p>";
-                                                        }
-
-                                                        ?>
-
-
-                                                    </div>
-                                                    <div class="card-footer"><a href="bookappointment.php?id=<?php echo $userid ?>" class="btn btn-success btn-block">Book Tutor</a></div>
-                                                </div>
-                                            </div>
-
-                                        <?php } ?>
-
 
 
 
@@ -217,7 +189,7 @@
 
 
     <script>
-        var v = document.getElementById("findtutors");
+        var v = document.getElementById("chat");
         v.className += "active";
     </script>
     <script src="jsGridScript/fetch_users.js"></script>

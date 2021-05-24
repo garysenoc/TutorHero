@@ -33,14 +33,9 @@
                     <p>My Available Time</p>
                 </a>
             </li>
-            <li class="nav-item " id="subjects">
-                <a class="nav-link" href="./subjects.php">
-                    <i class="material-icons">library_books</i>
-                    <p>My Appointments</p>
-                </a>
-            </li>
-            <li class="nav-item " id="subjecttopics">
-                <a class="nav-link" href="./subjecttopics.php">
+
+            <li class="nav-item " id="chat">
+                <a class="nav-link" href="./chat.php">
                     <i class="material-icons">bubble_chart</i>
                     <p>Chat</p>
                 </a>
