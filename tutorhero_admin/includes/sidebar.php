@@ -9,12 +9,7 @@
         </a></div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li class="nav-item " id="index">
-                <a class="nav-link" href="./index.php">
-                    <i class="material-icons">dashboard</i>
-                    <p>Dashboard</p>
-                </a>
-            </li>
+
             <li class="nav-item " id="users">
                 <a class="nav-link" href="./users.php">
                     <i class="material-icons">person</i>
@@ -47,7 +42,7 @@
             </li>
 
             <li class="nav-item active-pro ">
-                <a class="nav-link" href="./logout.php">
+                <a class="nav-link" href="../tutor/index.php">
                     <i class="material-icons">unarchive</i>
                     <p>Logout</p>
                 </a>
